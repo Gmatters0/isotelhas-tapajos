@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { products } from "@/lib/products";
 import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/ui/Reveal";
 
 export function ShowcaseSection() {
   const [activeId, setActiveId] = useState(products[0].id);
@@ -12,7 +13,7 @@ export function ShowcaseSection() {
   return (
     <section id="solucoes" className="scroll-mt-24 bg-brand-slate text-white">
       <div className="grid md:grid-cols-2">
-        <div className="relative h-[50vh] overflow-hidden border-b border-brand-border md:h-auto md:min-h-[640px] md:border-b-0 md:border-r">
+        <Reveal direction="left" className="relative h-[50vh] overflow-hidden border-b border-brand-border md:h-auto md:min-h-[640px] md:border-b-0 md:border-r">
           {products.map((product) => (
             <Image
               key={product.id}
@@ -27,9 +28,9 @@ export function ShowcaseSection() {
             />
           ))}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-slate/50 via-transparent to-transparent" />
-        </div>
+        </Reveal>
 
-        <div className="flex flex-col justify-center px-6 py-16 md:px-16 md:py-0">
+        <Reveal direction="right" className="flex flex-col justify-center px-6 py-16 md:px-16 md:py-0">
           <ul className="mx-auto w-full max-w-xl">
             {products.map((product) => {
               const isActive = product.id === active.id;
@@ -74,7 +75,7 @@ export function ShowcaseSection() {
               );
             })}
           </ul>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

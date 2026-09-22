@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { quoteFormSchema, workTypes, type QuoteFormSchema } from "@/lib/schemas";
 import { buildQuoteWhatsAppLink } from "@/lib/whatsapp";
+import { Reveal } from "@/components/ui/Reveal";
 
 const fieldClass =
   "mt-2 w-full border-0 border-b border-white/20 bg-transparent py-2 text-white placeholder-slate-500 focus:border-brand-terracotta focus:outline-none focus:ring-0";
@@ -26,7 +27,7 @@ export function QuoteFormSection() {
   return (
     <section id="orcamento" className="scroll-mt-24 grid md:grid-cols-2">
       <div className="bg-brand-navy px-6 py-20 text-white md:px-16 md:py-28">
-        <div className="mx-auto max-w-lg">
+        <Reveal direction="left" className="mx-auto max-w-lg">
           <h2 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
             Inicie seu Projeto com a Isotelhas Tapajós.
           </h2>
@@ -119,10 +120,10 @@ export function QuoteFormSection() {
               <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
             </button>
           </form>
-        </div>
+        </Reveal>
       </div>
 
-      <div className="relative min-h-[420px] md:min-h-[640px]">
+      <Reveal direction="right" delay={120} className="relative min-h-[420px] md:min-h-[640px]">
         <Image
           src="https://images.unsplash.com/photo-1781231702773-4cf3247fc061?w=1600&auto=format&fit=crop&q=80"
           alt="Fachada de arquitetura contemporânea em alta resolução"
@@ -130,7 +131,7 @@ export function QuoteFormSection() {
           sizes="(min-width: 768px) 50vw, 100vw"
           className="object-cover"
         />
-      </div>
+      </Reveal>
     </section>
   );
 }
