@@ -1,5 +1,5 @@
-import { AtSign } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
+import { InstagramIcon } from "@/components/ui/InstagramIcon";
 import { siteConfig } from "@/lib/site-config";
 
 export function Footer() {
@@ -30,7 +30,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="mt-2 inline-flex items-center gap-2 text-slate-300 transition-colors hover:text-white"
               >
-                <AtSign size={16} />
+                <InstagramIcon size={16} />
                 {siteConfig.instagram.handle}
               </a>
             </div>
