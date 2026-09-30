@@ -1,18 +1,8 @@
-import { cn } from "@/lib/utils";
-
-interface LogoProps {
-  className?: string;
-  variant?: "light" | "dark";
-}
-
-export function Logo({ className, variant = "light" }: LogoProps) {
-  const isLight = variant === "light";
-
+export function Logo() {
   return (
     <a
       href="#top"
-      className={cn("group inline-flex items-center gap-3", className)}
-      aria-label="Isotelhas Tapajós — página inicial"
+      className="inline-flex items-center gap-3 transition-opacity duration-200 hover:opacity-80"
     >
       <svg
         width="26"
@@ -31,30 +21,15 @@ export function Logo({ className, variant = "light" }: LogoProps) {
         />
         <path
           d="M8 21 L14 13 L20 21"
-          stroke="currentColor"
-          className={isLight ? "text-white" : "text-brand-slate"}
+          stroke="#fff"
           strokeWidth="2.5"
           strokeLinecap="square"
           strokeLinejoin="miter"
         />
       </svg>
       <span className="font-display leading-none">
-        <span
-          className={cn(
-            "block text-sm font-bold tracking-tight",
-            isLight ? "text-white" : "text-brand-slate"
-          )}
-        >
-          ISOTELHAS
-        </span>
-        <span
-          className={cn(
-            "block text-[10px] font-medium tracking-[0.3em]",
-            isLight ? "text-slate-400" : "text-slate-500"
-          )}
-        >
-          TAPAJÓS
-        </span>
+        <span className="block text-sm font-bold tracking-tight text-white">ISOTELHAS</span>{" "}
+        <span className="block text-[10px] font-medium tracking-[0.3em] text-slate-400">TAPAJÓS</span>
       </span>
     </a>
   );

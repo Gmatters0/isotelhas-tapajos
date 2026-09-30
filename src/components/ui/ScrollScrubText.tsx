@@ -1,8 +1,11 @@
 "use client";
 
 import { Fragment, useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { useScroll, useTransform, type MotionValue } from "framer-motion";
+import * as m from "framer-motion/m";
+
+// Opacidade mínima das palavras ainda "não lidas": mantém contraste >= 3:1 (WCAG AA, texto grande).
+const MIN_OPACITY = 0.55;
 
 interface ScrollScrubTextProps {
   text: string;
@@ -17,18 +20,17 @@ interface ScrubWordProps {
 }
 
 function ScrubWord({ word, start, end, progress }: ScrubWordProps) {
-  const opacity = useTransform(progress, [start, end], [0.15, 1]);
+  const opacity = useTransform(progress, [start, end], [MIN_OPACITY, 1]);
 
   return (
-    <motion.span style={{ opacity }} className="inline-block">
+    <m.span style={{ opacity }} className="inline-block motion-reduce:opacity-100!">
       {word}
-    </motion.span>
+    </m.span>
   );
 }
 
 export function ScrollScrubText({ text, className }: ScrollScrubTextProps) {
   const containerRef = useRef<HTMLParagraphElement>(null);
-  const prefersReducedMotion = useReducedMotion();
   const words = text.split(" ");
 
   const { scrollYProgress } = useScroll({
@@ -36,16 +38,8 @@ export function ScrollScrubText({ text, className }: ScrollScrubTextProps) {
     offset: ["start 0.85", "start 0.2"],
   });
 
-  if (prefersReducedMotion) {
-    return (
-      <p ref={containerRef} className={className}>
-        {text}
-      </p>
-    );
-  }
-
   return (
-    <p ref={containerRef} className={cn(className)}>
+    <p ref={containerRef} className={className}>
       {words.map((word, i) => (
         <Fragment key={`${word}-${i}`}>
           <ScrubWord

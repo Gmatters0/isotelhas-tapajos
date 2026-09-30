@@ -2,6 +2,8 @@ import { Logo } from "@/components/ui/Logo";
 import { InstagramIcon } from "@/components/ui/InstagramIcon";
 import { siteConfig } from "@/lib/site-config";
 
+const labelClass = "font-mono text-[11px] tracking-widest text-slate-400";
+
 export function Footer() {
   const year = new Date().getFullYear();
 
@@ -13,17 +15,17 @@ export function Footer() {
 
           <div className="grid gap-8 text-sm sm:grid-cols-3 md:gap-16">
             <div>
-              <p className="font-mono text-[11px] tracking-widest text-slate-500">EMPRESA</p>
+              <p className={labelClass}>EMPRESA</p>
               <p className="mt-2 text-slate-300">{siteConfig.legalName}</p>
               <p>CNPJ: {siteConfig.cnpj}</p>
             </div>
-            <div>
-              <p className="font-mono text-[11px] tracking-widest text-slate-500">SHOWROOM</p>
+            <address className="not-italic">
+              <p className={labelClass}>SHOWROOM</p>
               <p className="mt-2 text-slate-300">{siteConfig.address.line}</p>
               <p>{siteConfig.address.city}</p>
-            </div>
+            </address>
             <div>
-              <p className="font-mono text-[11px] tracking-widest text-slate-500">REDES</p>
+              <p className={labelClass}>REDES</p>
               <a
                 href={siteConfig.instagram.url}
                 target="_blank"
@@ -37,9 +39,9 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-white/10 pt-6 text-xs text-slate-500">
+        <p className="mt-12 border-t border-white/10 pt-6 text-xs">
           © {year} {siteConfig.legalName}. Todos os direitos reservados.
-        </div>
+        </p>
       </div>
     </footer>
   );

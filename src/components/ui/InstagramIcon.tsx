@@ -1,14 +1,9 @@
 interface InstagramIconProps {
   size?: number;
-  className?: string;
 }
 
-/**
- * lucide-react removida os ícones de marca (Instagram, etc.) — usamos um SVG
- * próprio, desenhado no mesmo estilo (stroke, 24x24, cantos arredondados)
- * para combinar visualmente com os demais ícones Lucide do site.
- */
-export function InstagramIcon({ size = 16, className }: InstagramIconProps) {
+// lucide-react não inclui ícones de marca; este SVG segue o mesmo estilo (stroke, 24x24).
+export function InstagramIcon({ size = 16 }: InstagramIconProps) {
   return (
     <svg
       width={size}
@@ -19,7 +14,6 @@ export function InstagramIcon({ size = 16, className }: InstagramIconProps) {
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={className}
       aria-hidden="true"
     >
       <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />

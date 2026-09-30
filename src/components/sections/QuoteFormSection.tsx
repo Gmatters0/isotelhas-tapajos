@@ -1,23 +1,56 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import { images } from "@/lib/images";
 import { quoteFormSchema, workTypes, type QuoteFormSchema } from "@/lib/schemas";
 import { buildQuoteWhatsAppLink } from "@/lib/whatsapp";
 import { Reveal } from "@/components/ui/Reveal";
 
 const fieldClass =
-  "mt-2 w-full border-0 border-b border-white/20 bg-transparent py-2 text-white placeholder-slate-500 focus:border-brand-terracotta focus:outline-none focus:ring-0";
+  "mt-2 w-full border-0 border-b border-white/20 bg-transparent py-2 text-white transition-colors placeholder:text-slate-400 hover:border-white/40 focus:border-brand-terracotta-light focus:outline-hidden aria-invalid:border-brand-terracotta-light";
+
+interface FieldProps {
+  name: keyof QuoteFormSchema;
+  label: string;
+  error?: string;
+  children: ReactNode;
+}
+
+function Field({ name, label, error, children }: FieldProps) {
+  return (
+    <div>
+      <label htmlFor={name} className="block text-xs uppercase tracking-widest text-slate-400">
+        {label}
+      </label>
+      {children}
+      {error && (
+        <p id={`${name}-erro`} role="alert" className="mt-1 text-xs text-brand-terracotta-light">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
 
 export function QuoteFormSection() {
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<QuoteFormSchema>({ resolver: zodResolver(quoteFormSchema) });
+
+  const field = (name: keyof QuoteFormSchema) => ({
+    id: name,
+    className: fieldClass,
+    "aria-invalid": errors[name] ? true : undefined,
+    "aria-describedby": errors[name] ? `${name}-erro` : undefined,
+    ...register(name),
+  });
 
   function onSubmit(data: QuoteFormSchema) {
     window.open(buildQuoteWhatsAppLink(data), "_blank", "noopener,noreferrer");
@@ -25,10 +58,17 @@ export function QuoteFormSection() {
   }
 
   return (
-    <section id="orcamento" className="scroll-mt-24 grid md:grid-cols-2">
+    <section
+      id="orcamento"
+      aria-labelledby="orcamento-titulo"
+      className="scroll-mt-24 grid md:grid-cols-2"
+    >
       <div className="bg-brand-navy px-6 py-20 text-white md:px-16 md:py-28">
         <Reveal direction="left" className="mx-auto max-w-lg">
-          <h2 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
+          <h2
+            id="orcamento-titulo"
+            className="font-display text-3xl font-semibold tracking-tight md:text-4xl"
+          >
             Inicie seu Projeto com a Isotelhas Tapajós.
           </h2>
           <p className="mt-4 text-slate-300">
@@ -37,49 +77,26 @@ export function QuoteFormSection() {
           </p>
 
           <form onSubmit={handleSubmit(onSubmit)} noValidate className="mt-10 space-y-6">
-            <div>
-              <label htmlFor="nome" className="block text-xs uppercase tracking-widest text-slate-400">
-                Nome completo
-              </label>
+            <Field name="nome" label="Nome completo" error={errors.nome?.message}>
               <input
-                id="nome"
                 type="text"
                 autoComplete="name"
                 placeholder="Como podemos te chamar?"
-                className={fieldClass}
-                {...register("nome")}
+                {...field("nome")}
               />
-              {errors.nome && <p className="mt-1 text-xs text-brand-terracotta">{errors.nome.message}</p>}
-            </div>
+            </Field>
 
-            <div>
-              <label htmlFor="whatsapp" className="block text-xs uppercase tracking-widest text-slate-400">
-                WhatsApp com DDD
-              </label>
+            <Field name="whatsapp" label="WhatsApp com DDD" error={errors.whatsapp?.message}>
               <input
-                id="whatsapp"
-                type="text"
-                inputMode="tel"
+                type="tel"
                 autoComplete="tel"
                 placeholder="(93) 9XXXX-XXXX"
-                className={fieldClass}
-                {...register("whatsapp")}
+                {...field("whatsapp")}
               />
-              {errors.whatsapp && (
-                <p className="mt-1 text-xs text-brand-terracotta">{errors.whatsapp.message}</p>
-              )}
-            </div>
+            </Field>
 
-            <div>
-              <label htmlFor="tipoObra" className="block text-xs uppercase tracking-widest text-slate-400">
-                Tipo de obra
-              </label>
-              <select
-                id="tipoObra"
-                defaultValue=""
-                className={`${fieldClass} [&>option]:text-brand-slate`}
-                {...register("tipoObra")}
-              >
+            <Field name="tipoObra" label="Tipo de obra" error={errors.tipoObra?.message}>
+              <select defaultValue="" {...field("tipoObra")} className={`${fieldClass} [&>option]:text-brand-slate`}>
                 <option value="" disabled>
                   Selecione...
                 </option>
@@ -89,44 +106,27 @@ export function QuoteFormSection() {
                   </option>
                 ))}
               </select>
-              {errors.tipoObra && (
-                <p className="mt-1 text-xs text-brand-terracotta">Selecione o tipo de obra</p>
-              )}
-            </div>
+            </Field>
 
-            <div>
-              <label htmlFor="metragem" className="block text-xs uppercase tracking-widest text-slate-400">
-                Metragem aproximada (m²)
-              </label>
-              <input
-                id="metragem"
-                type="text"
-                inputMode="decimal"
-                placeholder="Ex: 120"
-                className={fieldClass}
-                {...register("metragem")}
-              />
-              {errors.metragem && (
-                <p className="mt-1 text-xs text-brand-terracotta">{errors.metragem.message}</p>
-              )}
-            </div>
+            <Field name="metragem" label="Metragem aproximada (m²)" error={errors.metragem?.message}>
+              <input type="text" inputMode="decimal" placeholder="Ex: 120" {...field("metragem")} />
+            </Field>
 
             <button
               type="submit"
-              disabled={isSubmitting}
-              className="group mt-4 inline-flex w-full items-center justify-center gap-2 bg-brand-terracotta px-6 py-4 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-brand-terracotta/90 disabled:opacity-60 sm:w-auto"
+              className="group mt-4 inline-flex w-full items-center justify-center gap-2 bg-brand-terracotta-deep px-6 py-4 text-sm font-semibold tracking-wide text-white transition duration-200 hover:bg-brand-terracotta-deep/90 active:scale-[0.98] sm:w-auto"
             >
               Solicitar Estimativa via WhatsApp
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+              <ArrowRight size={16} aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1" />
             </button>
           </form>
         </Reveal>
       </div>
 
-      <Reveal direction="right" delay={120} className="relative min-h-[420px] md:min-h-[640px]">
+      <Reveal direction="right" delay={120} className="relative min-h-105 md:min-h-160">
         <Image
-          src="https://images.unsplash.com/photo-1781231702773-4cf3247fc061?w=1600&auto=format&fit=crop&q=80"
-          alt="Fachada de arquitetura contemporânea em alta resolução"
+          src={images.quote.src}
+          alt={images.quote.alt}
           fill
           sizes="(min-width: 768px) 50vw, 100vw"
           className="object-cover"

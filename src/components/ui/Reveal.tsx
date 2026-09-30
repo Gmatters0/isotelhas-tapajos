@@ -1,57 +1,79 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
-
-type RevealDirection = "up" | "down" | "left" | "right" | "none";
 
 interface RevealProps {
   children: ReactNode;
   className?: string;
   /** Atraso em ms antes de iniciar a animação, útil para escalonar listas. */
   delay?: number;
-  direction?: RevealDirection;
+  direction?: "up" | "left" | "right";
 }
 
-const hiddenOffset: Record<RevealDirection, string> = {
-  up: "translate-y-8",
-  down: "-translate-y-8",
-  left: "translate-x-8",
-  right: "-translate-x-8",
-  none: "",
-};
+// Um único listener compartilhado. Revela tudo que já passou da linha de revelação,
+// inclusive blocos "pulados" por rolagem rápida ou âncoras (um IntersectionObserver os perderia).
+const REVEAL_OFFSET = 60;
+const pending = new Set<HTMLElement>();
+let frame = 0;
+
+function revealVisible() {
+  frame = 0;
+  const limit = window.innerHeight - REVEAL_OFFSET;
+
+  for (const el of pending) {
+    if (el.getBoundingClientRect().top < limit) {
+      el.dataset.reveal = "shown";
+      pending.delete(el);
+    }
+  }
+
+  if (pending.size === 0) stopListening();
+}
+
+function onViewportChange() {
+  if (!frame) frame = requestAnimationFrame(revealVisible);
+}
+
+function stopListening() {
+  window.removeEventListener("scroll", onViewportChange);
+  window.removeEventListener("resize", onViewportChange);
+}
+
+function watch(el: HTMLElement) {
+  pending.add(el);
+  window.addEventListener("scroll", onViewportChange, { passive: true });
+  window.addEventListener("resize", onViewportChange, { passive: true });
+}
+
+function unwatch(el: HTMLElement) {
+  pending.delete(el);
+  if (pending.size === 0) stopListening();
+}
 
 export function Reveal({ children, className, delay = 0, direction = "up" }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
-    );
+    // Já na tela (ou acima dela) no carregamento: não esconde, evitando "piscar".
+    if (!el.dataset.reveal) {
+      if (el.getBoundingClientRect().top < window.innerHeight) return;
+      el.dataset.reveal = "hidden";
+    }
 
-    observer.observe(el);
-    return () => observer.disconnect();
+    watch(el);
+    return () => unwatch(el);
   }, []);
 
   return (
     <div
       ref={ref}
-      style={{ transitionDelay: visible ? `${delay}ms` : "0ms" }}
-      className={cn(
-        "transition-all duration-700 ease-out",
-        visible ? "translate-x-0 translate-y-0 opacity-100" : cn("opacity-0", hiddenOffset[direction]),
-        className
-      )}
+      data-direction={direction}
+      style={{ "--reveal-delay": `${delay}ms` } as CSSProperties}
+      className={cn("reveal", className)}
     >
       {children}
     </div>

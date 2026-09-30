@@ -1,12 +1,14 @@
 import { WHATSAPP_NUMBER } from "@/lib/site-config";
 import type { QuoteFormSchema } from "@/lib/schemas";
 
-export function buildWhatsAppLink(message: string, number: string = WHATSAPP_NUMBER): string {
-  return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+export function buildWhatsAppLink(message: string): string {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
-export const WHATSAPP_GREETING =
-  "Olá! Vim pelo site da Isotelhas Tapajós e gostaria de falar com um consultor sobre coberturas termoacústicas.";
+/** Link genérico para falar com um consultor (navbar, hero e botão flutuante). */
+export const CONSULTANT_LINK = buildWhatsAppLink(
+  "Olá! Vim pelo site da Isotelhas Tapajós e gostaria de falar com um consultor sobre coberturas termoacústicas."
+);
 
 export function buildQuoteWhatsAppLink(values: QuoteFormSchema): string {
   const message = [

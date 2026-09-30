@@ -29,7 +29,11 @@ const MANIFESTO_TEXT =
 
 export function ManifestoSection() {
   return (
-    <section id="diferenciais" className="scroll-mt-24 bg-brand-surface text-brand-slate">
+    <section
+      id="diferenciais"
+      aria-labelledby="diferenciais-titulo"
+      className="scroll-mt-24 bg-brand-surface text-brand-slate"
+    >
       <SectionDivider />
 
       <div className="mx-auto max-w-4xl px-6 py-24 md:px-12 md:py-36">
@@ -41,33 +45,36 @@ export function ManifestoSection() {
 
       <div className="border-t border-brand-border-light">
         <div className="mx-auto max-w-[1600px] px-6 py-16 md:px-12 md:py-20">
-          <Reveal>
-            <div className="mb-10 flex items-center gap-3 md:mb-14">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-terracotta" />
-              <p className="font-mono text-[11px] tracking-[0.2em] text-slate-500">
-                DIFERENCIAIS TÉCNICOS
-              </p>
-            </div>
+          <Reveal className="mb-10 flex items-center gap-3 md:mb-14">
+            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-brand-terracotta" />
+            <h2
+              id="diferenciais-titulo"
+              className="font-mono text-[11px] font-normal tracking-[0.2em] text-slate-600"
+            >
+              DIFERENCIAIS TÉCNICOS
+            </h2>
           </Reveal>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-5">
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-5">
             {indicators.map((item, i) => (
-              <Reveal key={item.value} delay={i * 100}>
-                <div className="h-full border border-brand-border-light bg-white p-8 shadow-sm transition-shadow duration-300 hover:shadow-md md:p-9">
-                  <div className="flex items-center justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center border border-brand-terracotta/30 bg-brand-terracotta/10 text-brand-terracotta">
-                      <item.icon size={22} strokeWidth={1.75} />
+              <li key={item.value}>
+                <Reveal delay={i * 100} className="h-full">
+                  <div className="h-full border border-brand-border-light bg-white p-8 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-terracotta/40 hover:shadow-lg md:p-9">
+                    <div className="flex items-center justify-between">
+                      <div className="flex h-12 w-12 items-center justify-center border border-brand-terracotta/30 bg-brand-terracotta/10 text-brand-terracotta-deep">
+                        <item.icon size={22} strokeWidth={1.75} aria-hidden="true" />
+                      </div>
+                      <span className="font-mono text-[11px] tracking-widest text-slate-500">{`0${i + 1}`}</span>
                     </div>
-                    <span className="font-mono text-[11px] tracking-widest text-slate-400">{`0${i + 1}`}</span>
+                    <h3 className="mt-6 font-display text-2xl font-bold tracking-tight text-brand-navy md:text-3xl">
+                      {item.value}
+                    </h3>
+                    <p className="mt-2 text-sm text-slate-600">{item.label}</p>
                   </div>
-                  <p className="mt-6 font-display text-2xl font-bold tracking-tight text-brand-navy md:text-3xl">
-                    {item.value}
-                  </p>
-                  <p className="mt-2 text-sm text-slate-600">{item.label}</p>
-                </div>
-              </Reveal>
+                </Reveal>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
     </section>
