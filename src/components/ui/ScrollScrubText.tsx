@@ -1,53 +1,65 @@
 "use client";
 
-import { Fragment, useRef } from "react";
-import { useScroll, useTransform, type MotionValue } from "framer-motion";
-import * as m from "framer-motion/m";
+import { Fragment, useEffect, useRef } from "react";
 
 // Opacidade mínima das palavras ainda "não lidas": mantém contraste >= 3:1 (WCAG AA, texto grande).
 const MIN_OPACITY = 0.55;
+// Janela do efeito: começa quando o topo do parágrafo cruza 85% da tela e termina em 20%.
+const START = 0.85;
+const END = 0.2;
 
 interface ScrollScrubTextProps {
   text: string;
   className?: string;
 }
 
-interface ScrubWordProps {
-  word: string;
-  start: number;
-  end: number;
-  progress: MotionValue<number>;
-}
-
-function ScrubWord({ word, start, end, progress }: ScrubWordProps) {
-  const opacity = useTransform(progress, [start, end], [MIN_OPACITY, 1]);
-
-  return (
-    <m.span style={{ opacity }} className="inline-block motion-reduce:opacity-100!">
-      {word}
-    </m.span>
-  );
-}
+const clamp = (value: number) => Math.min(1, Math.max(0, value));
 
 export function ScrollScrubText({ text, className }: ScrollScrubTextProps) {
-  const containerRef = useRef<HTMLParagraphElement>(null);
+  const paragraphRef = useRef<HTMLParagraphElement>(null);
   const words = text.split(" ");
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 0.85", "start 0.2"],
-  });
+  useEffect(() => {
+    const paragraph = paragraphRef.current;
+    if (!paragraph) return;
+
+    const spans = Array.from(paragraph.querySelectorAll<HTMLElement>("[data-word]"));
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+      const viewport = window.innerHeight;
+      const top = paragraph.getBoundingClientRect().top;
+      const progress = clamp((viewport * START - top) / (viewport * (START - END)));
+
+      spans.forEach((span, i) => {
+        const wordProgress = clamp(progress * spans.length - i);
+        span.style.opacity = String(MIN_OPACITY + (1 - MIN_OPACITY) * wordProgress);
+      });
+    };
+
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule, { passive: true });
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, []);
 
   return (
-    <p ref={containerRef} className={className}>
+    <p ref={paragraphRef} className={className}>
       {words.map((word, i) => (
         <Fragment key={`${word}-${i}`}>
-          <ScrubWord
-            word={word}
-            start={i / words.length}
-            end={(i + 1) / words.length}
-            progress={scrollYProgress}
-          />
+          <span data-word className="inline-block motion-reduce:opacity-100!">
+            {word}
+          </span>
           {i < words.length - 1 ? " " : ""}
         </Fragment>
       ))}

@@ -46,6 +46,12 @@ h3 {
   text-wrap: balance;
 }
 
+/* O preflight do Tailwind v4 removeu o cursor de mão dos botões. */
+button:not(:disabled),
+[role="button"]:not(:disabled) {
+  cursor: pointer;
+}
+
 :focus-visible {
   outline: 2px solid var(--color-brand-terracotta-light);
   outline-offset: 3px;
