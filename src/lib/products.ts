@@ -1,4 +1,4 @@
-import { unsplash, type SiteImage } from "@/lib/images";
+import type { SiteImage } from "@/lib/images";
 
 export interface Product {
   id: string;
@@ -16,8 +16,8 @@ export const products: Product[] = [
     description:
       "O charme da estética tradicional em terracota com núcleo isolante térmico. Indicada para residências nobres e chalés.",
     image: {
-      src: unsplash("1600612707884-c424a2ba812e"),
-      alt: "Telhado colonial em telhas terracota cercado por vegetação",
+      src: "/catalogo/isotelha-colonial-5-ondas-3-lg.webp",
+      alt: "Casa com cobertura Isotelha Colonial em terracota vista de cima",
     },
   },
   {
@@ -27,8 +27,8 @@ export const products: Product[] = [
     description:
       "Máxima eficiência estrutural, grandes vãos e estanqueidade para galpões, indústrias e comércios.",
     image: {
-      src: unsplash("1771164211037-d89b54554a14"),
-      alt: "Cobertura metálica trapezoidal em edificação industrial",
+      src: "/catalogo/isotelha-trapezoidal-2-lg.webp",
+      alt: "Residência com cobertura Isotelha Trapezoidal em aço galvalume",
     },
   },
   {
@@ -38,8 +38,8 @@ export const products: Product[] = [
     description:
       "Painéis isotérmicos Kingspan Isoeste para paredes limpas que aceitam pintura, gesso, cerâmica e texturas.",
     image: {
-      src: unsplash("1769490315790-5de4012634f8"),
-      alt: "Parede interna moderna com painéis modulares canelados",
+      src: "/catalogo/kingwall-3-lg.webp",
+      alt: "Sala com parede limpa em painéis KingWall",
     },
   },
   {
@@ -49,8 +49,8 @@ export const products: Product[] = [
     description:
       "Soluções resistentes em aço perfilado para obras industriais com foco em durabilidade.",
     image: {
-      src: unsplash("1787672357866-08ca3827c144"),
-      alt: "Estrutura interna de telhado metálico industrial com vigas de aço",
+      src: "/home-telhas-metalicas.webp",
+      alt: "Casa moderna com cobertura em telhas metálicas escuras",
     },
   },
 ];

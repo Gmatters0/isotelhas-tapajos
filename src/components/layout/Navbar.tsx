@@ -52,20 +52,20 @@ export function Navbar() {
       <nav aria-label="Principal" className="mx-auto flex h-20 max-w-[1600px] items-center justify-between px-6 md:px-12">
         <Logo />
 
-        <ul className="hidden items-center gap-7 lg:flex xl:gap-8">{renderLinks()}</ul>
+        <ul className="hidden items-center gap-7 xl:flex 2xl:gap-8">{renderLinks()}</ul>
 
         <a
           href={CONSULTANT_LINK}
           target="_blank"
           rel="noopener noreferrer"
-          className={`hidden px-5 py-2.5 text-xs lg:inline-flex ${ctaClass}`}
+          className={`hidden px-5 py-2.5 text-xs xl:inline-flex ${ctaClass}`}
         >
           Falar com Consultor
         </a>
 
         <button
           type="button"
-          className="p-1 text-white transition-colors hover:text-brand-terracotta-light lg:hidden"
+          className="p-1 text-white transition-colors hover:text-brand-terracotta-light xl:hidden"
           onClick={() => setMobileOpen((open) => !open)}
           aria-expanded={mobileOpen}
           aria-controls="menu-mobile"
@@ -76,7 +76,7 @@ export function Navbar() {
       </nav>
 
       {mobileOpen && (
-        <div id="menu-mobile" className="border-t border-white/10 bg-brand-slate px-6 py-6 lg:hidden">
+        <div id="menu-mobile" className="border-t border-white/10 bg-brand-slate px-6 py-6 xl:hidden">
           <ul className="flex flex-col gap-5">{renderLinks(() => setMobileOpen(false))}</ul>
           <a
             href={CONSULTANT_LINK}

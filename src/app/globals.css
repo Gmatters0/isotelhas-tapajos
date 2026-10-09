@@ -38,8 +38,8 @@
 }
 
 @theme inline {
-  --font-display: var(--font-display-raw), "Marcellus", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-body-raw), "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-raw), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-body-raw), "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono-raw), "JetBrains Mono", ui-monospace, monospace;
 }
 
@@ -53,11 +53,8 @@ body {
 
 h1,
 h2,
-h3,
-.font-display {
+h3 {
   text-wrap: balance;
-  /* Marcellus tem um único peso: evita negrito sintético nos títulos. */
-  font-synthesis-weight: none;
 }
 
 /* Mantém a largura da página estável quando o modal do catálogo trava a rolagem. */

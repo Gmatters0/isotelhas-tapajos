@@ -6,15 +6,11 @@ export interface NavLink {
 /** Número de WhatsApp (formato internacional, só dígitos) usado em todos os CTAs do site. */
 export const WHATSAPP_NUMBER = "559391977944";
 
-// "559391977944" -> "(93) 9197-7944" (aceita 8 ou 9 dígitos após o DDD)
-function formatBrPhone(digits: string): string {
-  const ddd = digits.slice(2, 4);
-  const local = digits.slice(4);
-  const split = local.length - 4;
-  return `(${ddd}) ${local.slice(0, split)}-${local.slice(split)}`;
-}
-
-export const PHONE_DISPLAY = formatBrPhone(WHATSAPP_NUMBER);
+/**
+ * Telefone exibido no site. Difere de WHATSAPP_NUMBER de propósito: o wa.me funciona sem o nono dígito,
+ * mas a exibição segue o formato atual de celular (com o 9 inicial).
+ */
+export const PHONE_DISPLAY = "(93) 99197-7944";
 
 /** Domínio oficial (canonical, Open Graph, sitemap, JSON-LD). Fixo: o site só responde em produção neste endereço. */
 export const SITE_URL = "https://isotelhastapajos.com.br";

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Marcellus, Outfit, JetBrains_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Inter, JetBrains_Mono } from "next/font/google";
 import { preconnect } from "react-dom";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
@@ -7,16 +7,13 @@ import { Footer } from "@/components/layout/Footer";
 import { WhatsAppFloatingButton } from "@/components/layout/WhatsAppFloatingButton";
 import { OG_IMAGE, SITE_URL, siteConfig } from "@/lib/site-config";
 
-// Substitutas gratuitas da identidade visual: Marcellus (romana clássica, no lugar de Classic Roman)
-// e Outfit (geométrica, no lugar de Stolzl). Para usar as fontes licenciadas, troque por next/font/local.
-const displayFont = Marcellus({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: "400",
   variable: "--font-display-raw",
   display: "swap",
 });
 
-const bodyFont = Outfit({
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body-raw",
   display: "swap",
@@ -67,7 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="pt-BR"
       data-scroll-behavior="smooth"
-      className={`${displayFont.variable} ${bodyFont.variable} ${jetBrainsMono.variable}`}
+      className={`${plusJakartaSans.variable} ${inter.variable} ${jetBrainsMono.variable}`}
     >
       <body className="min-h-screen bg-brand-surface font-sans text-brand-slate antialiased">
         <a

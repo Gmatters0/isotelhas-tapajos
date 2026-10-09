@@ -33,6 +33,7 @@ export function ShowcaseSection() {
               alt={image.alt}
               aria-hidden={id !== activeId}
               fill
+              unoptimized
               sizes="(min-width: 768px) 50vw, 100vw"
               className={cn(
                 "object-cover transition-opacity duration-700 ease-in-out",
@@ -106,7 +107,7 @@ export function ShowcaseSection() {
 
           <Link
             href="/catalogo"
-            className="group mx-auto mt-8 inline-flex w-full max-w-xl items-center gap-2 pl-6 font-mono text-xs tracking-widest text-brand-terracotta-light transition-colors duration-200 hover:text-white"
+            className="group mx-auto mt-10 inline-flex w-full max-w-xl items-center gap-2 pb-14 pl-6 md:pb-20 font-mono text-xs tracking-widest text-brand-terracotta-light transition-colors duration-200 hover:text-white"
           >
             VER CATÁLOGO COMPLETO
             <ArrowRight size={14} aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1" />
