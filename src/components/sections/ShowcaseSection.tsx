@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { products } from "@/lib/products";
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/ui/Reveal";
@@ -101,6 +103,14 @@ export function ShowcaseSection() {
               );
             })}
           </ul>
+
+          <Link
+            href="/catalogo"
+            className="group mx-auto mt-8 inline-flex w-full max-w-xl items-center gap-2 pl-6 font-mono text-xs tracking-widest text-brand-terracotta-light transition-colors duration-200 hover:text-white"
+          >
+            VER CATÁLOGO COMPLETO
+            <ArrowRight size={14} aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1" />
+          </Link>
         </Reveal>
       </div>
     </section>

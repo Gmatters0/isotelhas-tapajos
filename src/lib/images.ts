@@ -21,5 +21,3 @@ export const images = {
   },
 } satisfies Record<string, SiteImage>;
 
-/** Versão 1200x630 do hero para pré-visualização em redes sociais (Open Graph). */
-export const ogImageUrl = `${images.hero.src}?w=1200&h=630&fit=crop&fm=jpg&q=75`;

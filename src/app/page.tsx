@@ -3,9 +3,8 @@ import { ManifestoSection } from "@/components/sections/ManifestoSection";
 import { ShowcaseSection } from "@/components/sections/ShowcaseSection";
 import { ShowroomSection } from "@/components/sections/ShowroomSection";
 import { QuoteFormSection } from "@/components/sections/QuoteFormSection";
-import { ogImageUrl } from "@/lib/images";
 import { products } from "@/lib/products";
-import { SITE_URL, siteConfig } from "@/lib/site-config";
+import { OG_IMAGE, SITE_URL, WHATSAPP_NUMBER, siteConfig } from "@/lib/site-config";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -16,7 +15,9 @@ const jsonLd = {
   taxID: siteConfig.cnpj,
   description: siteConfig.description,
   url: SITE_URL,
-  image: ogImageUrl,
+  telephone: `+${WHATSAPP_NUMBER}`,
+  image: `${SITE_URL}${OG_IMAGE}`,
+  logo: `${SITE_URL}/brand/logo-stacked.png`,
   address: {
     "@type": "PostalAddress",
     streetAddress: "Av. Mendonça Furtado, 3941",

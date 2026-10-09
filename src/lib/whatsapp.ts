@@ -1,6 +1,7 @@
 import { WHATSAPP_NUMBER } from "@/lib/site-config";
 import type { QuoteFormSchema } from "@/lib/schemas";
 
+/** Link wa.me com mensagem pré-preenchida. O número vem de `WHATSAPP_NUMBER` (único lugar a editar). */
 export function buildWhatsAppLink(message: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }

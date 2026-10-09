@@ -1,36 +1,37 @@
-export function Logo() {
+import Image from "next/image";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+
+interface LogoProps {
+  /** "horizontal" para a navbar; "stacked" (símbolo sobre o nome) para o rodapé. */
+  variant?: "horizontal" | "stacked";
+  className?: string;
+}
+
+// Versões claras da marca, pensadas para os fundos escuros do site.
+const sources = {
+  horizontal: { src: "/brand/logo-horizontal-light.png", width: 1378, height: 186 },
+  stacked: { src: "/brand/logo-stacked-light.png", width: 1386, height: 422 },
+} as const;
+
+export function Logo({ variant = "horizontal", className }: LogoProps) {
+  const { src, width, height } = sources[variant];
+
   return (
-    <a
-      href="#top"
-      className="inline-flex items-center gap-3 transition-opacity duration-200 hover:opacity-80"
+    <Link
+      href="/"
+      aria-label="Isotelhas Tapajós — página inicial"
+      className="inline-flex transition-opacity duration-200 hover:opacity-80"
     >
-      <svg
-        width="26"
-        height="26"
-        viewBox="0 0 28 28"
-        fill="none"
-        aria-hidden="true"
-        className="shrink-0"
-      >
-        <path
-          d="M2 21 L14 6 L26 21"
-          stroke="#C35A38"
-          strokeWidth="2.5"
-          strokeLinecap="square"
-          strokeLinejoin="miter"
-        />
-        <path
-          d="M8 21 L14 13 L20 21"
-          stroke="#fff"
-          strokeWidth="2.5"
-          strokeLinecap="square"
-          strokeLinejoin="miter"
-        />
-      </svg>
-      <span className="font-display leading-none">
-        <span className="block text-sm font-bold tracking-tight text-white">ISOTELHAS</span>{" "}
-        <span className="block text-[10px] font-medium tracking-[0.3em] text-slate-400">TAPAJÓS</span>
-      </span>
-    </a>
+      <Image
+        src={src}
+        alt="Isotelhas Tapajós · Tecnologia em Coberturas"
+        width={width}
+        height={height}
+        unoptimized
+        loading="eager"
+        className={cn(variant === "horizontal" ? "h-9 w-auto md:h-11" : "h-24 w-auto", className)}
+      />
+    </Link>
   );
 }

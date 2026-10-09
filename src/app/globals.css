@@ -13,10 +13,21 @@
   --color-brand-border-light: #e2e8f0;
 
   --animate-enter: enter 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade: fade 0.35s ease-out both;
 
-  @keyframes enter {
+  @keyframes fade {
     from {
       opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* opacity 0.01 (e não 0): o texto já conta como "pintado" no primeiro quadro, sem esperar a animação iniciar. */
+  @keyframes enter {
+    from {
+      opacity: 0.01;
       transform: translateY(1.75rem);
     }
     to {
@@ -27,8 +38,8 @@
 }
 
 @theme inline {
-  --font-display: var(--font-display-raw), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-body-raw), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-raw), "Marcellus", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-body-raw), "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono-raw), "JetBrains Mono", ui-monospace, monospace;
 }
 
@@ -42,8 +53,20 @@ body {
 
 h1,
 h2,
-h3 {
+h3,
+.font-display {
   text-wrap: balance;
+  /* Marcellus tem um único peso: evita negrito sintético nos títulos. */
+  font-synthesis-weight: none;
+}
+
+/* Mantém a largura da página estável quando o modal do catálogo trava a rolagem. */
+html {
+  scrollbar-gutter: stable;
+}
+
+html:has(dialog[open]) {
+  overflow: hidden;
 }
 
 /* O preflight do Tailwind v4 removeu o cursor de mão dos botões. */
@@ -55,6 +78,52 @@ button:not(:disabled),
 :focus-visible {
   outline: 2px solid var(--color-brand-terracotta-light);
   outline-offset: 3px;
+}
+
+/* O anel de foco padrão é claro (fundos escuros); em superfícies claras usamos a variante de maior contraste. */
+.on-light :focus-visible {
+  outline-color: var(--color-brand-terracotta-deep);
+}
+
+/* Modal do catálogo: <dialog> nativo com entrada e saída suaves (@starting-style). */
+.catalog-dialog {
+  opacity: 0;
+  transform: translateY(1.25rem) scale(0.985);
+  transition:
+    opacity 240ms ease,
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    overlay 320ms allow-discrete,
+    display 320ms allow-discrete;
+}
+
+.catalog-dialog[open] {
+  opacity: 1;
+  transform: none;
+}
+
+@starting-style {
+  .catalog-dialog[open] {
+    opacity: 0;
+    transform: translateY(1.25rem) scale(0.985);
+  }
+}
+
+.catalog-dialog::backdrop {
+  background-color: rgb(10 17 24 / 0);
+  transition:
+    background-color 240ms ease,
+    overlay 240ms allow-discrete,
+    display 240ms allow-discrete;
+}
+
+.catalog-dialog[open]::backdrop {
+  background-color: rgb(10 17 24 / 0.74);
+}
+
+@starting-style {
+  .catalog-dialog[open]::backdrop {
+    background-color: rgb(10 17 24 / 0);
+  }
 }
 
 /*

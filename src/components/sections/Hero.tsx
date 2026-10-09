@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { images } from "@/lib/images";
 
 export function Hero() {
@@ -41,12 +42,12 @@ export function Hero() {
               termoacústicos de padrão global aplicados à realidade do Tapajós.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href="#solucoes"
+              <Link
+                href="/catalogo"
                 className="inline-flex items-center justify-center border border-white/25 px-6 py-3 text-sm font-medium tracking-wide text-white transition duration-200 hover:border-white hover:bg-white hover:text-brand-slate active:scale-[0.98]"
               >
                 Explorar Catálogo
-              </a>
+              </Link>
               <a
                 href="#orcamento"
                 className="inline-flex items-center justify-center bg-brand-terracotta-deep px-6 py-3 text-sm font-semibold tracking-wide text-white transition duration-200 hover:bg-brand-terracotta-deep/90 active:scale-[0.98]"
