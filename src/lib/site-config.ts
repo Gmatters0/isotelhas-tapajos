@@ -45,7 +45,5 @@ export const siteConfig = {
 export const navLinks: NavLink[] = [
   { label: "Soluções", href: "/#solucoes" },
   { label: "Catálogo", href: "/catalogo" },
-  { label: "KingWall", href: "/#kingwall" },
-  { label: "Diferenciais", href: "/#diferenciais" },
   { label: "Showroom", href: "/#showroom" },
 ];
