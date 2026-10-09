@@ -16,7 +16,7 @@ export const PHONE_DISPLAY = "(93) 99197-7944";
 export const SITE_URL = "https://isotelhastapajos.com.br";
 
 /** Imagem de compartilhamento (1200x630) em /public; caminho relativo, resolvido contra `metadataBase`. */
-export const OG_IMAGE = "/og.png";
+export const OG_IMAGE = "/og.jpg";
 
 export const siteConfig = {
   name: "Isotelhas Tapajós",
