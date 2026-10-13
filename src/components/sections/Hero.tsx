@@ -14,6 +14,7 @@ export function Hero() {
         fill
         loading="eager"
         fetchPriority="high"
+        unoptimized
         sizes="100vw"
         className="object-cover"
       />

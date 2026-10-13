@@ -8,8 +8,8 @@ export const unsplash = (photoId: string): string => `https://images.unsplash.co
 
 export const images = {
   hero: {
-    src: unsplash("1733003538511-4a2c0a42d9c6"),
-    alt: "Chalé contemporâneo com cobertura metálica termoacústica em estilo A-Frame",
+    src: "/hero-chale-tapajos.webp",
+    alt: "Chalé A-Frame com cobertura de telha térmica terracota à beira do rio ao pôr do sol",
   },
   showroom: {
     src: unsplash("1677272292473-babd917423d0"),

@@ -20,7 +20,6 @@ const jsonLd = {
   logo: `${SITE_URL}/brand/logo-stacked.png`,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Av. Mendonça Furtado, 3941",
     addressLocality: siteConfig.address.locality,
     addressRegion: siteConfig.address.region,
     addressCountry: "BR",

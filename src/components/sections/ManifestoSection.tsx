@@ -20,7 +20,7 @@ const indicators: Indicator[] = [
   {
     icon: MapPin,
     value: "Showroom Santarém",
-    label: "Consultoria técnica e estoque regional na Av. Mendonça Furtado",
+    label: "Consultoria técnica e estoque regional em Santarém",
   },
 ];
 

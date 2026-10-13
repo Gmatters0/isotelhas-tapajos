@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { images } from "@/lib/images";
-import { siteConfig } from "@/lib/site-config";
 import { Reveal } from "@/components/ui/Reveal";
 
 export function ShowroomSection() {
@@ -34,17 +33,6 @@ export function ShowroomSection() {
           >
             Consultoria técnica com presença física no Tapajós.
           </h2>
-          <p className="mt-6 max-w-lg text-slate-300">
-            Fornecemos os materiais, damos suporte técnico para arquitetos e engenheiros e indicamos
-            instaladores capacitados para garantir a execução correta do seu projeto em Santarém e
-            região.
-          </p>
-
-          <address className="mt-8 border-t border-brand-border pt-6 not-italic">
-            <p className="font-mono text-xs tracking-widest text-slate-400">ENDEREÇO</p>
-            <p className="mt-2 text-white">{siteConfig.address.line}</p>
-            <p className="text-slate-300">{siteConfig.address.city}</p>
-          </address>
         </Reveal>
       </div>
     </section>

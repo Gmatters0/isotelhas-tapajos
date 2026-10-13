@@ -27,7 +27,6 @@ export const siteConfig = {
   description:
     "Telhas e painéis termoacústicos Kingspan Isoeste (KingWall) em Santarém-PA. Menos calor, menos ruído de chuva e obra a seco. Peça seu orçamento no WhatsApp.",
   address: {
-    line: "Av. Mendonça Furtado, nº 3941",
     city: "Santarém – PA",
     locality: "Santarém",
     region: "PA",

@@ -24,11 +24,10 @@ export function Footer() {
               <p className="mt-2 text-slate-300">{siteConfig.legalName}</p>
               <p>CNPJ: {siteConfig.cnpj}</p>
             </div>
-            <address className="not-italic">
-              <p className={labelClass}>SHOWROOM</p>
-              <p className="mt-2 text-slate-300">{siteConfig.address.line}</p>
-              <p>{siteConfig.address.city}</p>
-            </address>
+            <div>
+              <p className={labelClass}>ATENDIMENTO</p>
+              <p className="mt-2 text-slate-300">{siteConfig.address.city}</p>
+            </div>
             <div>
               <p className={labelClass}>CONTATO</p>
               <a
