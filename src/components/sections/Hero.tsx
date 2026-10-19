@@ -25,7 +25,7 @@ export function Hero() {
         <div className="flex animate-enter items-center gap-3">
           <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-brand-terracotta" />
           <p className="font-mono text-[11px] tracking-[0.2em] text-slate-300">
-            REPRESENTANTE AUTORIZADO • TECNOLOGIA EM COBERTURAS
+            REPRESENTANTE AUTORIZADO DA KINGSPAN ISOESTE E BENCHMARK
           </p>
         </div>
 
